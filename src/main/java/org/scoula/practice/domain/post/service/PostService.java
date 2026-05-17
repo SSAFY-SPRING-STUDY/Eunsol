@@ -1,5 +1,7 @@
 package org.scoula.practice.domain.post.service;
 
+import org.scoula.practice.domain.member.controller.dto.MemberResponse;
+import org.scoula.practice.domain.member.service.MemberService;
 import org.scoula.practice.domain.post.controller.dto.PostRequest;
 import org.scoula.practice.domain.post.controller.dto.PostResponse;
 import org.scoula.practice.domain.post.entity.PostEntity;
@@ -14,17 +16,20 @@ import java.util.List;
 @Service
 public class PostService {
 
-    private PostRepository postRepository;
+    private final MemberService memberService;
+    private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, MemberService memberService) {
         this.postRepository = postRepository;
+        this.memberService = memberService;
     }
 
-    public PostResponse save(PostRequest request) {
-        PostEntity entity = new PostEntity(request.getTitle(), request.getContent(), request.getAuthor());
-        PostEntity returnedEntity = postRepository.save(entity);
+    public PostResponse save(PostRequest request, Long authorId) {
+        PostEntity entity = PostRequest.toEntity(request, authorId);
+        PostEntity savedEntity = postRepository.save(entity);
+        MemberResponse memberResponse = memberService.findById(authorId);
 
-        PostResponse response = new PostResponse(returnedEntity.getId(), returnedEntity.getTitle(), returnedEntity.getContent(), returnedEntity.getAuthor());
+        PostResponse response = PostResponse.fromEntity(savedEntity, memberResponse);
         return response;
     }
 
@@ -33,7 +38,8 @@ public class PostService {
         List<PostResponse> responseList = new ArrayList<>();
 
         for(PostEntity entity : entityList){
-            PostResponse response = new PostResponse(entity.getId(), entity.getTitle(), entity.getContent(), entity.getAuthor());
+            MemberResponse memberResponse = memberService.findById(entity.getAuthorId());
+            PostResponse response = PostResponse.fromEntity(entity, memberResponse);
             responseList.add(response);
         }
         return responseList;
@@ -41,7 +47,8 @@ public class PostService {
 
     public PostResponse findById(Long id) {
         PostEntity entity = postRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
-        PostResponse response = new PostResponse(entity.getId(), entity.getTitle(), entity.getContent(), entity.getAuthor());
+        MemberResponse memberResponse = memberService.findById(entity.getAuthorId());
+        PostResponse response = PostResponse.fromEntity(entity, memberResponse);
 
         return response;
     }

@@ -1,18 +1,11 @@
 package org.scoula.practice.domain.post.controller.dto;
 
-import lombok.Getter;
+import org.scoula.practice.domain.member.controller.dto.MemberResponse;
+import org.scoula.practice.domain.post.entity.PostEntity;
 
-@Getter
-public class PostResponse {
-    private final Long id;
-    private final String title;
-    private final String content;
-    private final String author;
+public record PostResponse(Long id, String title, String content, MemberResponse memberInfo) {
 
-    public PostResponse(Long id, String title, String content, String author) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.author = author;
+    public static PostResponse fromEntity(PostEntity entity, MemberResponse memberResponse) {
+        return new PostResponse(entity.getId(), entity.getTitle(), entity.getContent(), memberResponse);
     }
 }

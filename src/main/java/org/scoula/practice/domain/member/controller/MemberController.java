@@ -8,11 +8,9 @@ import org.scoula.practice.domain.member.controller.dto.MemberRequest;
 import org.scoula.practice.domain.member.controller.dto.MemberResponse;
 import org.scoula.practice.domain.member.service.MemberService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class MemberController {
