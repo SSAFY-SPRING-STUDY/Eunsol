@@ -1,9 +1,9 @@
-package org.scoula.practice.service;
+package org.scoula.practice.domain.post.service;
 
-import org.scoula.practice.controller.dto.PostRequest;
-import org.scoula.practice.controller.dto.PostResponse;
-import org.scoula.practice.entity.PostEntity;
-import org.scoula.practice.repository.PostRepository;
+import org.scoula.practice.domain.post.controller.dto.PostRequest;
+import org.scoula.practice.domain.post.controller.dto.PostResponse;
+import org.scoula.practice.domain.post.entity.PostEntity;
+import org.scoula.practice.domain.post.repository.PostRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
