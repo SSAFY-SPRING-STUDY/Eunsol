@@ -1,5 +1,6 @@
 package org.scoula.practice.domain.post.controller;
 
+import org.scoula.practice.domain.ApiResponse;
 import org.scoula.practice.domain.post.controller.dto.PostRequest;
 import org.scoula.practice.domain.post.controller.dto.PostResponse;
 import org.scoula.practice.domain.post.service.PostService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/posts")
 public class PostController {
 
     private PostService postService;
@@ -19,31 +21,37 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping("/api/posts")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public PostResponse createPost(@RequestBody PostRequest request) {
+    public ApiResponse<PostResponse> createPost(@RequestBody PostRequest request) {
         PostResponse response = postService.save(request);
-        return response;
+        return ApiResponse.success(response);
     }
 
-    @GetMapping("/api/posts")
-    public List<PostResponse> findAllPosts(){
-        return postService.findAll();
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<List<PostResponse>> findAllPosts(){
+        return ApiResponse.success(postService.findAll());
     }
 
-    @GetMapping("/api/posts/{id}")
-    public PostResponse findPostById(@PathVariable Long id) {
-        return postService.findById(id);
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<PostResponse> findPostById(@PathVariable Long id) {
+        PostResponse response = postService.findById(id);
+        return ApiResponse.success(response);
     }
 
-    @PutMapping("/api/posts/{id}")
-    public void updatePost(@PathVariable Long id, @RequestBody PostRequest request) {
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<Void> updatePost(@PathVariable Long id, @RequestBody PostRequest request) {
         postService.update(id, request);
+        return ApiResponse.success();
     }
 
-    @DeleteMapping("/api/posts/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePost(@PathVariable Long id) {
+    public ApiResponse<Void> deletePost(@PathVariable Long id) {
         postService.delete(id);
+        return ApiResponse.success();
     }
 }

@@ -5,6 +5,8 @@ import org.scoula.practice.domain.member.controller.dto.MemberRequest;
 import org.scoula.practice.domain.member.controller.dto.MemberResponse;
 import org.scoula.practice.domain.member.entity.MemberEntity;
 import org.scoula.practice.domain.member.repository.MemberRepository;
+import org.scoula.practice.global.exception.CustomException;
+import org.scoula.practice.global.exception.error.ErrorCode;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +22,7 @@ public class MemberService {
     }
 
     public MemberResponse findById(Long memberId) {
-        MemberEntity entity = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+        MemberEntity entity = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
         return MemberResponse.fromEntity(entity);
     }
 }
