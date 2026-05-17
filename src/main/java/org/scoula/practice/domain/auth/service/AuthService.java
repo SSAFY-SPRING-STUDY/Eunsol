@@ -21,8 +21,12 @@ public class AuthService {
 
         if(member.isValidPassword(request.password())) {
             String token = sessionManager.createSession(member.getId());
-            return new LoginResponse(token, "BEARER");
+            return new LoginResponse(token, "Bearer");
         }
         throw new RuntimeException("비밀번호가 올바르지 않습니다.");
+    }
+
+    public void logout(String accessToken) {
+        sessionManager.removeSession(accessToken);
     }
 }

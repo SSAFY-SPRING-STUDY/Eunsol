@@ -15,4 +15,8 @@ public class SessionManager {
         sessionStore.put(token, id);
         return token;
     }
+
+    public void removeSession(String accessToken) {
+        sessionStore.remove(accessToken);
+    }
 }
