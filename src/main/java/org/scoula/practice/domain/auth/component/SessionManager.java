@@ -3,6 +3,7 @@ package org.scoula.practice.domain.auth.component;
 import org.springframework.stereotype.Controller;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,5 +19,9 @@ public class SessionManager {
 
     public void removeSession(String accessToken) {
         sessionStore.remove(accessToken);
+    }
+
+    public Optional<Long> getMemberId(String accessToken) {
+        return Optional.ofNullable(sessionStore.get(accessToken));
     }
 }

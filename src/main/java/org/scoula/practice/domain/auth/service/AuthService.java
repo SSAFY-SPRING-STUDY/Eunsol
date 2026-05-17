@@ -29,4 +29,8 @@ public class AuthService {
     public void logout(String accessToken) {
         sessionManager.removeSession(accessToken);
     }
+
+    public Long getMemberId(String accessToken) {
+        return sessionManager.getMemberId(accessToken).orElseThrow(() -> new RuntimeException("id값 조회 불가"));
+    }
 }
