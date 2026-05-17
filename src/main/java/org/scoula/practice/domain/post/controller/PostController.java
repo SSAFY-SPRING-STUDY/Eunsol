@@ -49,8 +49,10 @@ public class PostController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<Void> updatePost(@PathVariable Long id, @RequestBody PostRequest request) {
-        postService.update(id, request);
+    public ApiResponse<Void> updatePost(@PathVariable Long id, @RequestBody PostRequest request, @RequestHeader("Authorization") String authHeader) {
+        String token = AuthorizationUtils.getAccessToken(authHeader);
+        Long authorId = authService.getMemberId(token);
+        postService.update(id, request, authorId);
         return ApiResponse.success();
     }
 

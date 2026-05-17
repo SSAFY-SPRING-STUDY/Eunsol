@@ -1,6 +1,7 @@
 package org.scoula.practice.domain.post.controller.dto;
 
 import lombok.Getter;
+import org.scoula.practice.domain.member.entity.MemberEntity;
 import org.scoula.practice.domain.post.entity.PostEntity;
 
 @Getter
@@ -13,7 +14,7 @@ public class PostRequest {
         this.content = content;
     }
 
-    public static PostEntity toEntity(PostRequest request, Long authorId) {
-        return new PostEntity(request.getTitle(), request.getContent(), authorId);
+    public static PostEntity toEntity(PostRequest request, MemberEntity author) {
+        return new PostEntity(request.getTitle(), request.getContent(), author);
     }
 }
