@@ -1,8 +1,8 @@
-package org.scoula.practice.controller;
+package org.scoula.practice.domain.post.controller;
 
-import org.scoula.practice.controller.dto.PostRequest;
-import org.scoula.practice.controller.dto.PostResponse;
-import org.scoula.practice.service.PostService;
+import org.scoula.practice.domain.post.controller.dto.PostRequest;
+import org.scoula.practice.domain.post.controller.dto.PostResponse;
+import org.scoula.practice.domain.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

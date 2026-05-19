@@ -1,4 +1,4 @@
-package org.scoula.practice.entity;
+package org.scoula.practice.domain.post.entity;
 
 
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package org.scoula.practice.controller;
+package org.scoula.practice.domain.post.controller;
 
-import org.scoula.practice.service.HelloService;
+import org.scoula.practice.domain.post.service.HelloService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

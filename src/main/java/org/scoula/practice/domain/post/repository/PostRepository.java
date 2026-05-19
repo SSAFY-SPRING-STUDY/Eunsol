@@ -1,6 +1,6 @@
-package org.scoula.practice.repository;
+package org.scoula.practice.domain.post.repository;
 
-import org.scoula.practice.entity.PostEntity;
+import org.scoula.practice.domain.post.entity.PostEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
