@@ -1,4 +1,4 @@
-package org.scoula.practice.service;
+package org.scoula.practice.domain.post.service;
 
 import org.springframework.stereotype.Service;
 
